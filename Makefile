@@ -1,7 +1,7 @@
 .PHONY: build
-CFLAGS=-Wall -Wextra -ggdb -pedantic
+CXXFLAGS=-Wall -Wextra -ggdb -pedantic -fno-exceptions 
 INCLUDE=-I include/
 LIBS=-L lib/ -lraylib -lopengl32 -lgdi32 -lwinmm
 
-build: main.c
-	$(CC) $(CFLAGS) -o monlo main.c $(INCLUDE) $(LIBS) 
+build:
+	$(CXX) $(CXXFLAGS) -o monlo main.cpp $(INCLUDE) $(LIBS) 

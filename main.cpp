@@ -1,14 +1,3 @@
-/*******************************************************************************************
-*
-*   raylib [core] example - 2d camera
-*
-*   This example has been created using raylib 1.5 (www.raylib.com)
-*   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
-*
-*   Copyright (c) 2016 Ramon Santamaria (@raysan5)
-*
-********************************************************************************************/
-
 #include "include/raylib.h"
 
 #define SCREEN_WIDTH 900
@@ -19,6 +8,9 @@ int main(void)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
+
+    int pointsInside = 0;
+    int totalPoints = 0;
 
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Monlo Pi");
 
@@ -37,7 +29,7 @@ int main(void)
 
         ClearBackground(BLACK);
 
-        DrawCircleLines(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, CIRCLE_RADIUS, BLUE);
+        DrawCircleLines(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, CIRCLE_RADIUS, SKYBLUE);
 
         EndDrawing();
         //----------------------------------------------------------------------------------

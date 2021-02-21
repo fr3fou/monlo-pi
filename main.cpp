@@ -1,4 +1,7 @@
 #include "include/raylib.h"
+#include <vector>
+#include <string>
+#include <iostream>
 
 #define SCREEN_WIDTH 900
 #define SCREEN_HEIGHT 900
@@ -6,39 +9,40 @@
 
 int main(void)
 {
-    // Initialization
-    //--------------------------------------------------------------------------------------
-
-    int pointsInside = 0;
-    int totalPoints = 0;
+    std::vector<Vector2> points{};
+    int points_inside{};
+    const Vector2 center{SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2};
+    double pi{};
 
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Monlo Pi");
+    Texture2D circle = LoadTexture("circle.png");
 
-    SetTargetFPS(60); // Set our game to run at 60 frames-per-second
-    //--------------------------------------------------------------------------------------
+    SetTargetFPS(60);
 
-    // Main game loop
-    while (!WindowShouldClose()) // Detect window close button or ESC key
+    while (!WindowShouldClose())
     {
-        // Update
-        //----------------------------------------------------------------------------------
+        for (int i = 0; i < 1000; i++)
+        {
+            Vector2 point{(float)GetRandomValue(0, SCREEN_WIDTH), (float)GetRandomValue(0, SCREEN_HEIGHT)};
+            points.push_back(point);
+            if (CheckCollisionPointCircle(point, center, CIRCLE_RADIUS))
+                points_inside++;
+        }
 
-        // Draw
-        //----------------------------------------------------------------------------------
         BeginDrawing();
-
         ClearBackground(BLACK);
-
-        DrawCircleLines(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, CIRCLE_RADIUS, SKYBLUE);
-
+        for (auto point : points)
+        {
+            DrawTextureEx(circle, point, 0, 1, SKYBLUE);
+            pi = 4 * ((double)points_inside / (double)points.size());
+        }
+        DrawCircleLines(center.x, center.y, CIRCLE_RADIUS, YELLOW);
+        DrawText(std::to_string(pi).c_str(), 5, 5, 23, WHITE);
         EndDrawing();
-        //----------------------------------------------------------------------------------
     }
 
-    // De-Initialization
-    //--------------------------------------------------------------------------------------
-    CloseWindow(); // Close window and OpenGL context
-    //--------------------------------------------------------------------------------------
+    UnloadTexture(circle);
+    CloseWindow();
 
     return 0;
 }

@@ -12,7 +12,7 @@ int main(void)
     std::vector<Vector2> points{};
     int points_inside{};
     const Vector2 center{SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2};
-    double pi{};
+    long double pi{};
 
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Monlo Pi");
     Texture2D circle = LoadTexture("circle.png");
@@ -21,7 +21,7 @@ int main(void)
 
     while (!WindowShouldClose())
     {
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < 10000; i++)
         {
             Vector2 point{(float)GetRandomValue(0, SCREEN_WIDTH), (float)GetRandomValue(0, SCREEN_HEIGHT)};
             points.push_back(point);
@@ -33,10 +33,14 @@ int main(void)
         ClearBackground(BLACK);
         for (auto point : points)
         {
-            DrawTextureEx(circle, point, 0, 1, SKYBLUE);
-            pi = 4 * ((double)points_inside / (double)points.size());
+            if (CheckCollisionPointCircle(point, center, CIRCLE_RADIUS))
+                DrawTextureEx(circle, point, 0, 0.25, SKYBLUE);
+            else
+                DrawTextureEx(circle, point, 0, 0.25, GREEN);
+            pi = 4.0 * ((long double)points_inside / (long double)points.size());
         }
-        DrawCircleLines(center.x, center.y, CIRCLE_RADIUS, YELLOW);
+
+        DrawCircleLines(center.x, center.y, CIRCLE_RADIUS, WHITE);
         DrawText(std::to_string(pi).c_str(), 5, 5, 23, WHITE);
         EndDrawing();
     }

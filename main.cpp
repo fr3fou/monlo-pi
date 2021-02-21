@@ -18,6 +18,7 @@ int main(void)
     Texture2D circle = LoadTexture("circle.png");
 
     SetTargetFPS(60);
+    ClearBackground(BLACK);
 
     while (!WindowShouldClose())
     {
@@ -30,7 +31,6 @@ int main(void)
         }
 
         BeginDrawing();
-        ClearBackground(BLACK);
         for (auto point : points)
         {
             if (CheckCollisionPointCircle(point, center, CIRCLE_RADIUS))
@@ -41,8 +41,8 @@ int main(void)
         }
 
         DrawCircleLines(center.x, center.y, CIRCLE_RADIUS, WHITE);
-        DrawText(std::to_string(pi).c_str(), 5, 5, 23, WHITE);
         EndDrawing();
+        std::cout << pi << std::endl;
     }
 
     UnloadTexture(circle);

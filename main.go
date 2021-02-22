@@ -5,9 +5,9 @@ import (
 )
 
 const (
-	screenWidth  = 200
-	screenHeight = 200
-	radius       = 100
+	screenWidth  = 500
+	screenHeight = 500
+	radius       = 250
 )
 
 var (
@@ -29,13 +29,11 @@ func main() {
 	circle := rl.LoadTexture("circle.png")
 	defer rl.UnloadTexture(circle)
 
-	rl.SetTargetFPS(60)
+	rl.SetTargetFPS(144)
 	rl.ClearBackground(rl.Black)
 
 	points := make(chan Point, 100)
-	for i := 0; i < 100; i++ {
-		go gen(points)
-	}
+	go gen(points)
 
 	for !rl.WindowShouldClose() {
 		for point := range points {
